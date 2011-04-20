@@ -11,7 +11,6 @@ class IpVersionDispatcher
     ip_helper = IPAddr.new(ip_address) rescue nil
     
     unless ip_helper.nil?
-      puts "yai not nil"
       if (ip_helper.ipv6?)
         ip_version = :ipv6
       else
