@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '..', 'lib','helpers.rb')
+require File.join(File.dirname(__FILE__), '..', 'lib','ip_range_metadata.rb')
 
 require 'rubygems'
 require 'sinatra'
