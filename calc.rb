@@ -7,7 +7,7 @@ require File.join(File.dirname(__FILE__),'lib','format_helper.rb')
 get '/css/style.css' do
   headers \
    'Content-Type' => 'text/css; charset=utf-8'
-  scss :style
+  sass :style
 end
 
 get '/' do

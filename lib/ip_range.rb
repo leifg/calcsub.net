@@ -54,6 +54,10 @@ class IpRange
     @Ip_helper.to_s
   end
   
+  def size_of_sections
+    @Ip_helper.size_of_sections
+  end
+  
   class BoringStub
     
     def network
@@ -77,6 +81,11 @@ class IpRange
 end
 
 class IPAddress::IPv6
+
+
+  def size_of_sections
+    4
+  end
 
   def separator
     ':'
@@ -104,7 +113,11 @@ class IPAddress::IPv4
   def separator
     '.'
   end
-   
+  
+  def size_of_sections
+    3
+  end
+  
   def valid?
     IPAddress::valid_ipv4? address
   end

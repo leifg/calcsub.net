@@ -29,11 +29,29 @@ end
 
 describe IpRange, "when receiving ipv6 address" do
 
-  Local_address1 = "fe80:0000:0000:0000:0000:0000:0000:282f/10"
+  Local_IPv6_address1_range = "fe80:0000:0000:0000:0000:0000:0000:282f/10"
+  IPv6_address_range_2 = "2002:0000:0000:0000:17a4:0000:13f5:282f/3"
+  IPv6_address_range_3 = "2001:910:7600::/38"
+  IPv6_address_range_4 = "2a01:e00::/26"
   
-  it "should return the correct net address for local ip address #{Local_address1}" do 
-    metadata = IpRange.new(Local_address1)
+  it "should return the correct net address for local ip address #{Local_IPv6_address1_range}" do 
+    metadata = IpRange.new(Local_IPv6_address1_range)
     metadata.net_address.should == "fe80:0000:0000:0000:0000:0000:0000:0000"
+  end
+  
+  it "should return the correct net address for local ip address #{IPv6_address_range_2}" do 
+    metadata = IpRange.new(IPv6_address_range_2)
+    metadata.net_address.should == "2000:0000:0000:0000:0000:0000:0000:0000"
+  end
+  
+  it "should return the correct net address for local ip address #{IPv6_address_range_3}" do 
+    metadata = IpRange.new(IPv6_address_range_3)
+    metadata.net_address.should == "2001:0910:7400:0000:0000:0000:0000:0000"
+  end
+  
+  it "should return the correct net address for local ip address #{IPv6_address_range_4}" do 
+    metadata = IpRange.new(IPv6_address_range_4)
+    metadata.net_address.should == "2a01:0e00:0000:0000:0000:0000:0000:0000"
   end
 
 end

@@ -1,8 +1,8 @@
 !!!
 %html
-  %head 
-    %title Dualcalc
-    %link(rel="stylesheet" href="/css/style.css")
+	%head 
+		%title Dualcalc
+		%link(rel="stylesheet" href="/css/style.css")
 
 %h1 The IP address:
 %p== The info
@@ -11,15 +11,25 @@
 //  %span(id='address-value') #{@data.address}
 
 #address
-  %span(id='address-value')
-    <span id='net'>#{@format_hash[:net]}</span><span id='mixed'>#{@format_hash[:mixed]}</span><span id='host'>#{@format_hash[:host]}</span>
+	%span(id='address-value')
+		<span id='net'>#{@format_hash[:net]}</span><span id='mixed'>#{@format_hash[:mixed]}</span><span id='host'>#{@format_hash[:host]}</span>
 
 
-%h2 address
-%p= @data.address
 
-%h2 prefix
-%p= @data.prefix
-
-%h2 net_address
-%p= @data.net_address
+#container
+	.row
+		.left
+			address
+		
+		.middle
+			#{@data.address}
+	.row
+		.left
+			prefix
+		.middle
+			#{@data.prefix}
+	.row
+		.left
+			prefix
+		.middle
+			#{@data.prefix}
