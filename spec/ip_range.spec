@@ -1,71 +1,72 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe IpRangeMetadata, "when passed ipv4 address" do
+describe IpRange, "when receiving ipv4 address" do
+  
   Local_IPv4_address1 = "192.168.0.198/24"
   Local_IPv4_address2 = "127.0.0.1/32"
   IPv4_address1 = "199.59.148.83/29"
   
   it "should return the correct net address for local ip address #{Local_IPv4_address1}" do 
-    metadata = IpRangeMetadata.new(Local_IPv4_address1)
+    metadata = IpRange.new(Local_IPv4_address1)
     metadata.net_address.should == "192.168.0.0"
   end
   
   it "should return the correct net address for local ip address #{Local_IPv4_address2}" do 
-    metadata = IpRangeMetadata.new(Local_IPv4_address2)
+    metadata = IpRange.new(Local_IPv4_address2)
     metadata.net_address.should == "127.0.0.1"
   end
   
   it "should return the correct net address for ip address #{IPv4_address1}" do 
-    metadata = IpRangeMetadata.new(IPv4_address1)
+    metadata = IpRange.new(IPv4_address1)
     metadata.net_address.should == "199.59.148.80"
   end
   
   it "should be valid for local ip address #{Local_IPv4_address1}" do
-    metadata = IpRangeMetadata.new(Local_IPv4_address1)
+    metadata = IpRange.new(Local_IPv4_address1)
     metadata.valid?.should be true
   end
 end
 
-describe IpRangeMetadata, "when passed ipv6 address" do
+describe IpRange, "when receiving ipv6 address" do
 
   Local_address1 = "fe80:0000:0000:0000:0000:0000:0000:282f/10"
   
   it "should return the correct net address for local ip address #{Local_address1}" do 
-    metadata = IpRangeMetadata.new(Local_address1)
+    metadata = IpRange.new(Local_address1)
     metadata.net_address.should == "fe80:0000:0000:0000:0000:0000:0000:0000"
   end
 
 end
 
-describe IpRangeMetadata, "when passed invalid input" do
+describe IpRange, "when receiving invalid input" do
   
-  it "should return nil on nil input" do 
-    metadata = IpRangeMetadata.new(nil)
+  it "should return nil on nil input" do
+    metadata = IpRange.new(nil)
     metadata.net_address.should == nil
   end
   
   it "should return nil on higher prefix IPv4 input" do 
-    metadata = IpRangeMetadata.new("192.168.1.27/33")
+    metadata = IpRange.new("192.168.1.27/33")
     metadata.net_address.should == nil
   end
   
   it "should return nil on higher prefix IPv6 input" do 
-    metadata = IpRangeMetadata.new("fe80:0000:0000:0000:0000:0000:0000:282f/129")
+    metadata = IpRange.new("fe80:0000:0000:0000:0000:0000:0000:282f/129")
     metadata.net_address.should == nil
   end
   
   it "should be invalid on higher prefix IPv4 input" do 
-    metadata = IpRangeMetadata.new("192.168.1.27/33l")
+    metadata = IpRange.new("192.168.1.27/33l")
     metadata.net_address.should == nil
   end
   
   it "should be invalid on higher prefix IPv6 input" do 
-    metadata = IpRangeMetadata.new("fe80:0000:0000:0000:0000:0000:0000:282f/129")
-    metadata.net_address.should == nil
+    metadata = IpRange.new("fe80:0000:0000:0000:0000:0000:0000:282f/129")
+    metadata.net_address.should == nil 
   end
   
   it "should be invalid on nil input" do
-    metadata = IpRangeMetadata.new(nil)
+    metadata = IpRange.new(nil)
     metadata.valid?.should be false
   end
   

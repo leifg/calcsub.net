@@ -1,0 +1,17 @@
+#address {
+	padding:20px;
+
+	width: 80%;
+	font: bold 32px Fixed, monospace;
+	text-align: center;
+	border:2px dashed #BBBBBB;
+	background:#FFFFFF;
+	margin:0 auto;
+	-moz-border-radius:10px;
+	-khtml-border-radius:10px;
+	-webkit-border-radius:10px;
+}
+
+#net { color: blue; }
+#mixed {color: red;}
+#host {color: black;}

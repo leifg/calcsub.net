@@ -1,4 +1,6 @@
-require File.join(File.dirname(__FILE__), '..', 'lib','ip_range_metadata.rb')
+require File.join(File.dirname(__FILE__), '..', 'lib','ip_range.rb')
+require File.join(File.dirname(__FILE__), '..', 'lib','format_helper.rb')
+require File.join(File.dirname(__FILE__), '..', 'calc.rb')
 
 require 'rubygems'
 require 'sinatra'
