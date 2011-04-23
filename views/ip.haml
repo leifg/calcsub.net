@@ -4,23 +4,20 @@
 		%title Dualcalc
 		%link(rel="stylesheet" href="/css/style.css")
 
-%h1 The IP address:
-%p== The info
+#form_address
+	%form
+		%label{:for => 'ip address'}="IP-address with prefix"
+		%br
+		%input{:type => 'text', :id => 'input_address'}
 
-//#address
-//  %span(id='address-value') #{@data.address}
-
-#address
-	%span(id='address-value')
+#address{:class => @data.valid? ? 'success' : 'error'}
+	%span{:id => 'address-value'}
 		<span id='net'>#{@format_hash[:net]}</span><span id='mixed'>#{@format_hash[:mixed]}</span><span id='host'>#{@format_hash[:host]}</span>
-
-
 
 #container
 	.row
 		.left
 			address
-		
 		.middle
 			#{@data.address}
 	.row
@@ -30,6 +27,8 @@
 			#{@data.prefix}
 	.row
 		.left
-			prefix
+			net-address
+
 		.middle
-			#{@data.prefix}
+			#{@data.net_address}
+			

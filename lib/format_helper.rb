@@ -9,49 +9,56 @@ class FrontendFormatHelper
   end
 
   def dotted_hash
-    
     hash = @IP_Range.split
-    net_string = hash[:net].join(@IP_Range.separator)+@IP_Range.separator unless hash[:net].length == 0
-    mixed_string = hash[:mixed].join(@IP_Range.separator)+@IP_Range.separator unless hash[:mixed].length == 0
-    host_string = hash[:host].join(@IP_Range.separator) unless hash[:host].length == 0
     
-    remove_separators(net_string, mixed_string, host_string)
+    if (hash)
+      net_string = hash[:net].join unless hash[:net].length == 0
+      mixed_string = hash[:mixed].join unless hash[:mixed].length == 0
+      host_string = hash[:host].join unless hash[:host].length == 0
     
+      #remove_separators(net_string, mixed_string, host_string)
+    
+      char_count = 0
+      insert_count = 0
+    
+      nl = net_string.length rescue 0
+      ml = mixed_string.length rescue 0
+      hl = host_string.length rescue 0
+    
+      while char_count+insert_count <= (nl + ml + hl + insert_count - @IP_Range.size_of_sections)
+        char_count = char_count+1
+        if (char_count % @IP_Range.size_of_sections == 0)
+          insert_in_right_string(net_string, mixed_string, host_string, char_count+insert_count)
+          insert_count = insert_count+1
+        end
+      end
+    end
     {:net => net_string, :mixed => mixed_string, :host => host_string}
   end
   
   private
-  def remove_separators(net_string, mixed_string, host_string)
-    if (to_remove?(net_string, mixed_string, host_string))
-      net_string.chomp!(@IP_Range.separator)
-    end
-    
-    if (to_remove?(mixed_string, host_string))
-      mixed_string.chomp!(@IP_Range.separator)
-    end
-  end
-  
-  def to_remove?(section, section_to_follow, section_after_that = nil)
-    last_section = section.split(@IP_Range.separator)[-1] rescue   false
-    
-    if (last_section)
-      if (last_section.length % @IP_Range.size_of_sections != 0)
-        true
+    # insert the separator at the right position in the right string
+    # example
+    #      net              host
+    # |----:----:|-|---:----:----:----|
+    #
+    def insert_in_right_string(net_string, mixed_string, host_string, count)
+      
+      nl = net_string.length rescue 0
+      ml = mixed_string.length rescue 0
+      hl = host_string.length rescue 0
+      
+      #don't insert at the very end
+      # if count >= (nl + ml + hl)
+      #   return
+      # end
+
+      if count <= nl
+        net_string.insert(count,@IP_Range.separator)
+      elsif count <= nl + ml
+        mixed_string.insert(count - nl, @IP_Range.separator)
       else
-        last_section?(section_to_follow, section_after_that)
+        host_string.insert(count - nl - ml, @IP_Range.separator)
       end
     end
-  end
-  
-  def last_section?(section_to_follow, section_after_that)
-    if (section_to_follow)
-      false
-    else
-      if (section_after_that)
-        false
-      else
-        true
-      end
-    end
-  end
 end

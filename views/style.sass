@@ -1,27 +1,62 @@
+input
+	padding: 5px 10px
+	background-color: transparent
+	z-index: 2
+	position: relative
+	margin: 10px auto
+	width: 270px
+	margin: 5px 0
+	font-size: 24px
+	font: Fixed, monospace
+	font-weight: bold
+	border: 1px solid #ccc
+	-moz-border-radius: 5px
+	-webkit-border-radius: 5px
+	color: #595959
+	
+label
+	-webkit-transition: opacity 0.15s linear
+	color: #bababa
+	background-color: #FFFFFF
+	text-align: center
+	margin:auto
+	font: Fixed, monospace
+
+#form_address
+	width: 500px
+	margin: 0 auto
+
 #address
 	padding: 20px
-	width: 80%
+	width: 800px
 	font: bold 32px Fixed, monospace
 	text-align: center
-	border: 2px dashed #BBBBBB
-	background: #FFFFFF
-	margin: 0 auto
+	border: 2px dashed #333333
+	margin: 10px auto
 	-moz-border-radius: 10px
 	-khtml-border-radius: 10px
 	-webkit-border-radius: 10px
 
+.success
+	background: #88EE88
+
+.error
+	background: #EE8888
+
 #container
 	width: 600px
 	padding: 10px
-	spacing: 10px
 	display: table
-	border: 1px solid black
+	border: 2px dashed black
+	margin: 50px auto
 
 .row
 	display: table-row
 	
 .left, .middle, .right
 	display: table-cell
+	font: bold 16px Fixed, monospace
+	padding: 5px
 
 #net
 	color: blue
@@ -30,3 +65,14 @@
 #host
 	color: black
 
+	// input[type=text],input[type=password]{padding: 5px 10px; background-color: transparent; position: relative; z-index: 2;}
+	// label{position: absolute; z-index: 1;-webkit-transition: opacity 0.15s linear; color: #bababa; background-color: #FFFFFF; }
+	// 
+	// #login{width: 290px; margin: 0 auto;}
+	// #login input[type=text],#login input[type=password]{width:270px; margin: 5px 0; font-size: 24px; font-weight: bold; border: 1px solid #ccc; -moz-border-radius:5px; -webkit-border-radius:5px; color: #595959;}
+	// #login label{font-size: 24px; margin: 14px 10px;}
+	// 
+	// #login .sayit{font-size:24px; color: #595959; font-style: italic; padding-bottom: 5px;}
+	// 
+	// 
+	// Read more: http://blog.ajaxmasters.com/awesome-cssjs-form-styling/#ixzz1KOL19vBZ

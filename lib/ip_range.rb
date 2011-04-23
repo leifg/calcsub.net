@@ -30,18 +30,6 @@ class IpRange
     @Ip_helper.separator
   end
   
-  def address
-    @Ip_helper.address
-  end
-  
-  def net_address
-    @Ip_helper.network.address
-  end
-  
-  def prefix
-    @Ip_helper.prefix
-  end
-  
   def valid?
     @Ip_helper.valid?
   end
@@ -56,6 +44,28 @@ class IpRange
   
   def size_of_sections
     @Ip_helper.size_of_sections
+  end
+  
+  #important functions:
+  
+  def address
+    @Ip_helper.address
+  end
+  
+  def net_address
+    @Ip_helper.network.address
+  end
+  
+  def prefix
+    @Ip_helper.prefix
+  end
+  
+  def num_hosts
+    
+  end
+  
+  def num_nets
+    
   end
   
   class BoringStub
@@ -76,12 +86,15 @@ class IpRange
       false
     end
     
+    def split
+      nil
+    end
+    
   end
   
 end
 
 class IPAddress::IPv6
-
 
   def size_of_sections
     4
