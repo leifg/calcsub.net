@@ -3,38 +3,39 @@
 	%head 
 		%title Dualcalc
 		%link{:rel => 'stylesheet', :href => '/css/style.css'}
+		%script{:src => "http://code.jquery.com/jquery-#{settings.jquery_version}.min.js", :type => 'text/javascript', :charset => 'utf-8'}
 		%meta{:author => 'Leif Gensert'}
 		%meta{:content => 'text/html', :charset => 'utf-8', 'http-equiv' => 'Content-Type' }
 		%meta{:content => 'IP address calculator for IPv4 and IPv6 addresses given a prefix in decimal form', :name => 'description' }
 		%meta{:content => 'ipv4, ipv6, ip address calculator, ip subnet calculator, ip calculator, subnet calculator, calculator for ipv4 and ipv6 ip addresses'}
+	%body
+		#address_form{:class => 'address_form_style'}
+			%form{:action => '/post', :method => 'post'}
+				#address_form_label_box
+					%label{:for => 'input_address', :class => 'address_form_label_style', :id => 'address_form_label'}="IP address with prefix"
+				#address_form_input_box
+					%input{:type => 'text', :value => @string_for_input, :name => 'address_with_prefix', :class => 'address_form_input_style', :id => 'address_form_input'}
+				#address_form_submit_box
+					%input{:type => 'submit', :value => 'calc', :name => 'calc', :class => 'address_form_submit_style', :id => 'address_form_submit'}
 
-#address_form{:class => 'address_form_style'}
-	%form{:action => '/post', :method => 'post'}
-		#address_form_label_box
-			%label{:for => 'input_address', :class => 'address_form_label_style', :id => 'address_form_label'}="IP address with prefix"
-		#address_form_input_box
-			%input{:type => 'text', :value => @string_for_input, :name => 'address_with_prefix', :class => 'address_form_input_style', :id => 'address_form_input'}
-		#address_form_submit_box
-			%input{:type => 'submit', :value => 'calc', :name => 'calc', :class => 'address_form_submit_style', :id => 'address_form_submit'}
+		#address_box{:class => ['address_box_style',@frontend_helper.error?(@empty) ? 'address_box_style_error' : 'address_box_style_success']}
+			%span{:class => 'address_value_style', :id => 'address_value'}
+				#{@frontend_helper.html_formated_address(@empty)}
 
-#address_box{:class => ['address_box_style',@data.valid? ? 'address_box_style_success' : 'address_box_style_error']}
-	%span{:class => 'address_value_style', :id => 'address_value'}
-		#{@frontend_helper.html_formated_address}
+		#address_info_box{:class => 'address_info_box_style', :id => 'address_info_box'}
+			.row
+				.left
+					address
+				.middle
+					#{@data.address}
+			.row
+				.left
+					prefix
+				.middle
+					#{@data.prefix}
+			.row
+				.left
+					net-address
 
-#address_info_box{:class => 'address_info_box_style', :id => 'address_info_box'}
-	.row
-		.left
-			address
-		.middle
-			#{@data.address}
-	.row
-		.left
-			prefix
-		.middle
-			#{@data.prefix}
-	.row
-		.left
-			net-address
-
-		.middle
-			#{@data.net_address}
+				.middle
+					#{@data.net_address}

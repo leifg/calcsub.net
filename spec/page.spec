@@ -9,7 +9,17 @@ describe "DualCalc" do
 
   it "should respond to /" do
     get '/'
-    Integer(last_response.status).should < 400
+    last_response.should be_ok
+  end
+  
+  it "should respond to any_string" do
+    get '/any_string'
+    last_response.should be_ok
+  end
+  
+  it "should respond to any_number" do
+    get '/2'
+    last_response.should be_ok
   end
   
   it "should respond to valid input" do

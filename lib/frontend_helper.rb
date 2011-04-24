@@ -37,14 +37,23 @@ class FrontendHelper
     end
   end
   
-  def html_formated_address
+  def html_formated_address(empty)
     hash = dotted_hash rescue nil
     
-    if hash
-      "<span class='net_style' id='net'>#{hash[:net]}</span><span class='mixed_style' id='mixed'>#{hash[:mixed]}</span><span class='host_style' id='host'>#{hash[:host]}</span>"
-    else
+    if error?(hash,empty)
       "<span class='address_error_style' id='address_error'>#{@@Invalid_input_string}</span>"
+    else
+      if hash
+        net_string = hash[:net]
+        mixed_string = hash[:mixed]
+        host_string = hash[:host]
+      end
+      "<span class='net_style' id='net'>#{net_string}</span><span class='mixed_style' id='mixed'>#{mixed_string}</span><span class='host_style' id='host'>#{host_string}</span>"
     end
+  end
+  
+  def error?(hash=dotted_hash, empty)
+    !(hash || empty)
   end
   
   private

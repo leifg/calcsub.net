@@ -17,24 +17,37 @@ post '/post' do
   redirect "/#{params[:address_with_prefix]}"
 end
 
-get '/' do
-  redirect "#{@@default_address}/#{@@default_prefix}"
+get '/:any_string' do
+  set_values(params)
+  haml :ip
 end
 
-# get '/:any_string' do
-#   @data=IpRange.new(nil)
-#   @string_for_input = params[:any_string]
-#   @frontend_helper = FrontendHelper.new(@data)
-#   haml :ip
-# end
+get '/' do
+  set_values(params,nil,true)
+  haml :ip
+end
 
 get '/:address/:prefix' do
-  @data = IpRange.new(params[:address],params[:prefix])
+  set_values(params, IpRange.new(params[:address],params[:prefix]))
+  haml :ip
+end
+
+
+def set_values(params, data=nil, empty=nil)
+  
+  if (data)
+    @data = data
+  else
+    @data = IpRange.new(nil) unless data
+  end
+  @empty = empty
+  @frontend_helper = FrontendHelper.new(@data)
+  
   if @data.valid?
     @string_for_input = "#{@data.address}/#{@data.prefix.to_s }"
-  else
+  elsif params.has_key?('any_string')
+    @string_for_input = params[:any_string]
+  elsif params.has_key?('address')
     @string_for_input = "#{params[:address]}/#{params[:prefix]}"
   end
-  @frontend_helper = FrontendHelper.new(@data)
-  haml :ip
 end
