@@ -1,7 +1,8 @@
 require File.join(File.dirname(__FILE__),'ip_range.rb')
 
-class FrontendFormatHelper
+class FrontendHelper
 
+  @@Invalid_input_string = "invalid input"
   @IP_Range
 
   def initialize(ip_range)
@@ -11,12 +12,12 @@ class FrontendFormatHelper
   def dotted_hash
     hash = @IP_Range.split
     
-    if (hash)
+    if (not hash)
+      nil
+    else
       net_string = hash[:net].join unless hash[:net].length == 0
       mixed_string = hash[:mixed].join unless hash[:mixed].length == 0
       host_string = hash[:host].join unless hash[:host].length == 0
-    
-      #remove_separators(net_string, mixed_string, host_string)
     
       char_count = 0
       insert_count = 0
@@ -32,8 +33,18 @@ class FrontendFormatHelper
           insert_count = insert_count+1
         end
       end
+      {:net => net_string, :mixed => mixed_string, :host => host_string}
     end
-    {:net => net_string, :mixed => mixed_string, :host => host_string}
+  end
+  
+  def html_formated_address
+    hash = dotted_hash rescue nil
+    
+    if hash
+      "<span class='net_style' id='net'>#{hash[:net]}</span><span class='mixed_style' id='mixed'>#{hash[:mixed]}</span><span class='host_style' id='host'>#{hash[:host]}</span>"
+    else
+      "<span class='address_error_style' id='address_error'>#{@@Invalid_input_string}</span>"
+    end
   end
   
   private

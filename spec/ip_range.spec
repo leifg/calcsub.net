@@ -88,4 +88,14 @@ describe IpRange, "when receiving invalid input" do
     metadata.valid?.should be false
   end
   
+  it "should be invalid on non number prefix input (constructor 1)" do
+    metadata = IpRange.new("2003:0000:0000:0000:0000:0000:0000:0014","1y")
+    metadata.valid?.should be false
+  end
+  
+  it "should be invalid on non number prefix input (constructor 2)" do
+    metadata = IpRange.new("2003:0000:0000:0000:0000:0000:0000:0014/1y")
+    metadata.valid?.should be false
+  end
+  
 end

@@ -9,21 +9,18 @@ class IpRange
   def initialize(ip_address, prefix=nil)
     
     begin
-      if prefix
-        @Ip_helper = IPAddress.parse("#{ip_address}/#{prefix}")
-      else
-        @Ip_helper = IPAddress.parse(ip_address)
+      
+      unless prefix
+        arr = ip_address.split('/')
+        ip_address = arr[0]
+        prefix = arr[1]
       end
+      
+      prefix = Integer(prefix)
+      @Ip_helper = IPAddress.parse("#{ip_address}/#{prefix}")
     rescue
       @Ip_helper = BoringStub.new
     end
-    
-    if prefix
-      @Ip_helper = IPAddress.parse("#{ip_address}/#{prefix}") rescue BoringStub.new
-    else
-      @Ip_helper = IPAddress.parse(ip_address) rescue BoringStub.new
-    end
-  rescue
   end
   
   def separator
@@ -141,9 +138,7 @@ class IPAddress::IPv4
   
   def sections
     string_octets = Array.new
-    
     octets.each {|o| string_octets << "%03d" % o}
-    
     string_octets
   end
   
