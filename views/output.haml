@@ -1,0 +1,21 @@
+#address_box{:class => ['address_box_style',@data.valid? ? 'address_box_style_success' : 'address_box_style_error']}
+	%span{:class => 'address_value_style', :id => 'address_value'}
+		#{@frontend_helper.html_formated_address}
+
+#address_info_box{:class => 'address_info_box_style', :id => 'address_info_box'}
+	.row
+		.left
+			address
+		.middle
+			#{@data.address}
+	.row
+		.left
+			prefix
+		.middle
+			#{@data.prefix}
+	.row
+		.left
+			net-address
+
+		.middle
+			#{@data.net_address}

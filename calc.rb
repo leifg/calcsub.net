@@ -19,17 +19,17 @@ end
 
 get '/:any_string' do
   set_values(params)
-  haml :ip
+  haml :layout
 end
 
 get '/' do
   set_values(params,nil,true)
-  haml :ip
+  haml :layout
 end
 
 get '/:address/:prefix' do
   set_values(params, IpRange.new(params[:address],params[:prefix]))
-  haml :ip
+  haml :layout
 end
 
 

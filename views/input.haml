@@ -1,0 +1,8 @@
+#address_form{:class => 'address_form_style'}
+	%form{:action => '/post', :method => 'post'}
+		#address_form_label_box
+			%label{:for => 'input_address', :class => 'address_form_label_style', :id => 'address_form_label'}="IP address with prefix"
+		#address_form_input_box
+			%input{:type => 'text', :value => @string_for_input, :name => 'address_with_prefix', :class => 'address_form_input_style', :id => 'address_form_input'}
+		#address_form_submit_box
+			%input{:type => 'submit', :value => 'calc', :name => 'calc', :class => 'address_form_submit_style', :id => 'address_form_submit'}
