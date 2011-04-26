@@ -1,11 +1,9 @@
 require 'sinatra'
 require 'haml'
 require 'sass'
+require 'json'
 require File.join(File.dirname(__FILE__),'lib','ip_range.rb')
 require File.join(File.dirname(__FILE__),'lib','frontend_helper.rb')
-
-@@default_address = '192.168.0.1'
-@@default_prefix = 24
 
 get '/css/style.css' do
   headers \
@@ -18,27 +16,34 @@ post '/post' do
 end
 
 get '/:any_string' do
-  set_values(params, IpRange.new(params[:any_string]))
-  haml :layout
+  tmp_data = IpRange.new(params[:any_string])
+  if tmp_data.valid?
+    redirect "/#{tmp_data.address}/#{tmp_data.prefix}"
+  else
+    process_data(params, IpRange.new(params[:any_string]), nil)
+  end
 end
 
 get '/' do
-  set_values(params,nil,true)
-  haml :layout
+  process_data(params,nil,true)
+end
+
+get '/:address/:prefix/json' do
+  content_type :json
+  data = IpRange.new(params[:address],params[:prefix])
+  data.json
 end
 
 get '/:address/:prefix' do
-  set_values(params, IpRange.new(params[:address],params[:prefix]))
-  haml :layout
+  process_data(params, IpRange.new(params[:address],params[:prefix]))
 end
 
 
-def set_values(params, data=nil, empty=nil)
-  
-  if (data)
+def process_data(params, data=nil, empty=nil)
+  if data
     @data = data
   else
-    @data = IpRange.new(nil) unless data
+    @data = IpRange.new(nil)
   end
   @empty = empty
   @frontend_helper = FrontendHelper.new(@data)
@@ -50,4 +55,6 @@ def set_values(params, data=nil, empty=nil)
   elsif params.has_key?('address')
     @string_for_input = "#{params[:address]}/#{params[:prefix]}"
   end
+  
+  haml :layout
 end

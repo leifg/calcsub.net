@@ -1,37 +1,41 @@
 # --------------------------------------------------
 # Convenience Methods
 # --------------------------------------------------
-def all_spec_files
-  Dir['spec/*.spec']
+def all_rspec_files
+  Dir['rspec/*.spec']
 end
 
-def run_spec_matching(thing_to_match)
-  matches = all_spec_files.grep(/#{thing_to_match}/i)
-  if matches.empty?
-    puts "Sorry, thanks for playing, but there were no matches for #{thing_to_match}"
-  else
-    run matches.join(' ')
-  end
-end
 
-def run(files_to_run)
-  puts "Running: #{files_to_run}"
-  system "rspec -c #{files_to_run}"
-  puts "=========="
+# --------------------------------------------------
+# Handling of execution
+# --------------------------------------------------
+def run_all_files
+  run_all_rspecs
+  puts
+  run_all_qunits
   no_int_for_you
 end
 
-def run_all_specs
-  run(all_spec_files.join(' '))
+def run_internal(command, files)
+  puts "files to run: #{files}"
+  system "#{command} #{files}"
+end
+
+def run_all_rspecs
+  run_internal("rspec -c -fd", all_rspec_files.join(' '))
+end
+
+def run_all_qunits
+  run_internal("echo", "not implemented yet")
 end
 
 # --------------------------------------------------
 # Watchr Rules
 # --------------------------------------------------
-watch('^spec/(.*)\.spec')       { |m| run_spec_matching(m[1]) }
-watch('^lib/(.*)\.rb')          { |m| run_spec_matching(".*") }
-watch('^views/(.*)\.haml')      { |m| run_spec_matching(m[1]) }
-watch('^spec/spec_helper\.rb')  { run_all_specs }
+watch('^rspec/(.*)\.spec')       { run_all_rspecs }
+watch('^rspec/spec_helper\.rb')  { run_all_files }
+watch('^lib/(.*)\.rb')           { run_all_files }
+watch('^views/(.*)\.haml')       { run_all_files }
 
 # --------------------------------------------------
 # Signal Handling
@@ -48,7 +52,7 @@ Signal.trap 'INT' do
   else
     puts "   Did you just send me an INT? Ugh.  I'll quit for real if you do it again."
     @sent_an_int = true
-    Kernel.sleep 1.5
-    run_all_specs
+    Kernel.sleep 0.5
+    run_all_files
   end
 end

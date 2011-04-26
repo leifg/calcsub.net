@@ -7,18 +7,17 @@ class IpRange
   @Address
   
   def initialize(ip_address, prefix=nil)
-    
-    begin      
+    begin
       unless prefix
         arr = ip_address.split('/')
         ip_address = arr[0]
         prefix = arr[1]
         
         unless prefix
-    		tmp_ip_helper = IPAddress.parse(ip_address).max_prefix
+    		  prefix = IPAddress.parse(ip_address).max_prefix
         end
       end
-      
+      puts "IP address: #{ip_address} and Prefix: #{prefix}"
       prefix = Integer(prefix)
       @Ip_helper = IPAddress.parse("#{ip_address}/#{prefix}")
     rescue
@@ -60,17 +59,81 @@ class IpRange
     @Ip_helper.prefix
   end
   
-  def num_hosts
-    
+  def broadcast_address
+    @Ip_helper.broadcast.address
   end
   
-  def num_nets
-    
+  def json
+    {
+      :address => address,
+      :prefix => prefix,
+      :net_address => net_address,
+      :broadcast_address => broadcast_address,
+      :splitted_address => dotted_hash
+    }.to_json
   end
+  
+  def dotted_hash
+    hash = split
+    
+    if (not hash)
+      nil
+    else
+      net_string = hash[:net].join unless hash[:net].length == 0
+      mixed_string = hash[:mixed].join unless hash[:mixed].length == 0
+      host_string = hash[:host].join unless hash[:host].length == 0
+    
+      char_count = 0
+      insert_count = 0
+    
+      nl = net_string.length rescue 0
+      ml = mixed_string.length rescue 0
+      hl = host_string.length rescue 0
+    
+      while char_count+insert_count <= (nl + ml + hl + insert_count - size_of_sections)
+        char_count = char_count+1
+        if (char_count % size_of_sections == 0)
+          insert_in_right_string(net_string, mixed_string, host_string, char_count+insert_count)
+          insert_count = insert_count+1
+        end
+      end
+      {:net => net_string, :mixed => mixed_string, :host => host_string}
+    end
+  end
+  
+  private
+    # insert the separator at the right position in the right string
+    # example
+    #      net              host
+    # |----:----:|-|---:----:----:----|
+    #
+    def insert_in_right_string(net_string, mixed_string, host_string, count)
+      
+      nl = net_string.length rescue 0
+      ml = mixed_string.length rescue 0
+      hl = host_string.length rescue 0
+      
+      #don't insert at the very end
+      # if count >= (nl + ml + hl)
+      #   return
+      # end
+
+      if count <= nl
+        net_string.insert(count,separator)
+      elsif count <= nl + ml
+        mixed_string.insert(count - nl, separator)
+      else
+        host_string.insert(count - nl - ml, separator)
+      end
+    end
   
   class BoringStub
     
     def network
+      self
+    end
+    
+    def broadcast
       self
     end
     
@@ -112,12 +175,24 @@ class IPAddress::IPv6
     self.class.parse_u128(network_u128, @prefix)
   end
   
+  def broadcast
+    self.class.parse_u128(broadcast_u128, @prefix)
+  end
+  
+  def broadcast_u128
+    network_u128 + size - 1
+  end
+  
   def valid?
     IPAddress::valid_ipv6? address
   end
   
   def sections
     hexs
+  end
+  
+  def size
+    2 ** max_prefix
   end
   
   def split

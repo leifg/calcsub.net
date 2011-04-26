@@ -22,6 +22,11 @@ describe "DualCalc" do
     last_response.should be_ok
   end
   
+  it "should respond to an ip-address" do
+    get '/192.168.1.1'
+    last_response.should be_ok
+  end
+  
   it "should respond to valid input" do
     get '/192.168.1.20/24'
     last_response.should be_ok 
