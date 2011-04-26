@@ -18,7 +18,7 @@ post '/post' do
 end
 
 get '/:any_string' do
-  set_values(params)
+  set_values(params, IpRange.new(params[:any_string]))
   haml :layout
 end
 

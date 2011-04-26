@@ -8,12 +8,15 @@ class IpRange
   
   def initialize(ip_address, prefix=nil)
     
-    begin
-      
+    begin      
       unless prefix
         arr = ip_address.split('/')
         ip_address = arr[0]
         prefix = arr[1]
+        
+        unless prefix
+    		tmp_ip_helper = IPAddress.parse(ip_address).max_prefix
+        end
       end
       
       prefix = Integer(prefix)
@@ -100,6 +103,10 @@ class IPAddress::IPv6
   def separator
     ':'
   end
+  
+  def max_prefix
+  	128
+  end
 
   def network
     self.class.parse_u128(network_u128, @prefix)
@@ -126,6 +133,10 @@ class IPAddress::IPv4
   
   def size_of_sections
     3
+  end
+  
+  def max_prefix
+  	32
   end
   
   def valid?
