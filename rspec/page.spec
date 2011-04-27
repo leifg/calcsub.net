@@ -12,19 +12,20 @@ describe "DualCalc" do
     last_response.should be_ok
   end
   
-  it "should respond to any_string" do
+  it "should respond to any string" do
     get '/any_string'
     last_response.should be_ok
   end
   
-  it "should respond to any_number" do
+  it "should respond to any number" do
     get '/2'
-    last_response.should be_ok
+    puts "the status is: #{last_response.status}"
+    last_response.status.to_i.should < 400
   end
   
-  it "should respond to an ip-address" do
+  it "should respond to an ip-address without prefix" do
     get '/192.168.1.1'
-    last_response.should be_ok
+    last_response.status.to_i.should < 400
   end
   
   it "should respond to valid input" do

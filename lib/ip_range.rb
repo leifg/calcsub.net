@@ -12,7 +12,7 @@ class IpRange
         arr = ip_address.split('/')
         ip_address = arr[0]
         prefix = arr[1]
-        
+         
         unless prefix
     		  prefix = IPAddress.parse(ip_address).max_prefix
         end
@@ -190,7 +190,7 @@ class IPAddress::IPv6
   end
   
   def size
-    2 ** max_prefix
+    2 ** @prefix.host_prefix
   end
   
   def split
@@ -228,6 +228,11 @@ class IPAddress::IPv4
   
 end
 
+class IPAddress::Prefix128
+  def host_prefix
+    128 - @prefix
+  end
+end
 
 # returns a data stucture that splits the ip address in 3 sections (net, host, mixed)
 # example
