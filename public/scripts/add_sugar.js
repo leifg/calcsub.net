@@ -39,6 +39,9 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	// set focus to input field
+	$("#address_form_input").focus();
+	
 	function escape(str) {
 		return str.replace(/([ #;&%,+*~\'"!^$[\]()=>|])/g,'\\$1');
 	}
