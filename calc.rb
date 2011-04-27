@@ -11,16 +11,39 @@ get '/css/style.css' do
   sass :style
 end
 
+get '/public/scripts/:any_script' do
+  headers \
+   'Content-Type' => 'application/x-javascript; charset=utf-8'
+  File.read(File.join('public', 'scripts', params[:any_script]))
+end
+
 post '/post' do
   redirect "/#{params[:address_with_prefix]}"
 end
 
-get '/:any_string' do
-  tmp_data = IpRange.new(params[:any_string])
-  if tmp_data.valid?
-    redirect "/#{tmp_data.address}/#{tmp_data.prefix}"
+get '/:any_string/expand' do
+  @data = IpRange.new(params[:any_string])
+  expand_string
+  @string_for_input
+end
+
+['/:any_string', '/:any_string/partial'].each do |path|
+  partial = path =~ /partial$/
+  
+  if partial
+    page = :output
   else
-    process_data(params, IpRange.new(params[:any_string]), nil)
+    page = :layout
+  end
+  
+  get path do
+    tmp_data = IpRange.new(params[:any_string])
+    if tmp_data.valid?
+      append_string = partial ? "/partial" : nil
+      redirect "/#{tmp_data.address}/#{tmp_data.prefix}#{append_string}"
+    else
+      process_data(params, IpRange.new(params[:any_string]), nil, page)
+    end
   end
 end
 
@@ -38,23 +61,32 @@ get '/:address/:prefix' do
   process_data(params, IpRange.new(params[:address],params[:prefix]))
 end
 
+get '/:address/:prefix/partial' do
+  process_data(params, IpRange.new(params[:address],params[:prefix]),nil,:output)
+end
 
-def process_data(params, data=nil, empty=nil)
-  if data
-    @data = data
-  else
-    @data = IpRange.new(nil)
-  end
-  @empty = empty
-  @frontend_helper = FrontendHelper.new(@data)
+helpers do
   
-  if @data.valid?
-    @string_for_input = "#{@data.address}/#{@data.prefix.to_s }"
-  elsif params.has_key?('any_string')
-    @string_for_input = params[:any_string]
-  elsif params.has_key?('address')
-    @string_for_input = "#{params[:address]}/#{params[:prefix]}"
+  def expand_string
+    if @data.valid?
+      @string_for_input = "#{@data.address}/#{@data.prefix.to_s }"
+    elsif params.has_key?('any_string')
+      @string_for_input = params[:any_string]
+    elsif params.has_key?('address')
+      @string_for_input = "#{params[:address]}/#{params[:prefix]}"
+    end
   end
   
-  haml :layout
+  def process_data(params, data=nil, empty=nil, page=:layout)
+    if data
+      @data = data
+    else
+      @data = IpRange.new(nil)
+    end
+    @empty = empty
+    @frontend_helper = FrontendHelper.new(@data)
+    expand_string
+  
+    haml page, :layout => false
+  end
 end

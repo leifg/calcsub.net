@@ -1,6 +1,7 @@
 Requirements:
 - sinatra
 - sinatra-reloader
+- ipaddress
 - haml
 - sass
 
