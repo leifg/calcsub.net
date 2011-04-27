@@ -100,12 +100,6 @@ describe IpRange, "when receiving ipv6 address" do
     metadata.net_address.should == "ff80:0000:0000:0000:0000:0000:0000:0000"
   end
   
-  it "should return the correct net address for local ip address #{Local_IPv6_address2_range}" do 
-    metadata = IpRange.new(Local_IPv6_address2_range)
-    metadata.broadcast_address.should == "ff80:01ff:ffff:ffff:ffff:ffff:ffff:ffff"
-  end
-  
-  
   it "should return the correct net address for local ip address #{IPv6_address_range_2}" do 
     metadata = IpRange.new(IPv6_address_range_2)
     metadata.net_address.should == "2000:0000:0000:0000:0000:0000:0000:0000"
@@ -116,15 +110,21 @@ describe IpRange, "when receiving ipv6 address" do
     metadata.net_address.should == "2001:0910:7400:0000:0000:0000:0000:0000"
   end
   
-  it "should return the correct broadcast address for local ip address #{IPv6_address_range_3}" do 
-    metadata = IpRange.new(IPv6_address_range_3)
-    metadata.broadcast_address.should == "2001:0910:73ff:ffff:ffff:ffff:ffff:ffff"
-  end
-  
+    
   it "should return the correct net address for local ip address #{IPv6_address_range_4}" do 
     metadata = IpRange.new(IPv6_address_range_4)
     metadata.valid?.should be true
     metadata.net_address.should == "2a01:0e00:0000:0000:0000:0000:0000:0000"
+  end
+  
+  it "should return the correct broadcast address for local ip address #{IPv6_address_range_3}" do 
+    metadata = IpRange.new(IPv6_address_range_3)
+    metadata.broadcast_address.should == "2001:0910:77ff:ffff:ffff:ffff:ffff:ffff"
+  end
+  
+    it "should return the correct broadcast address for local ip address #{Local_IPv6_address2_range}" do 
+    metadata = IpRange.new(Local_IPv6_address2_range)
+    metadata.broadcast_address.should == "ff80:01ff:ffff:ffff:ffff:ffff:ffff:ffff"
   end
   
   it "should be valid for single ip address #{Single_IPV6_IP_Address}" do
