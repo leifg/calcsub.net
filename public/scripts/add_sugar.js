@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	// add handler for refreshing ip address
 	$("#address_form_input").keyup(function(event) {
-		var input = $("#address_form_input").val();
+		var input = escape($("#address_form_input").val());
 		
 		if (input) {
 			$.get("/"+input+"/partial", function(data, status) {
@@ -20,7 +20,7 @@ $(document).ready(function() {
 	
 	// expand string on losing focus
 	$("#address_form_input").blur(function(event) {
-		var input = $("#address_form_input").val()
+		var input = escape($("#address_form_input").val());
 		
 		$.get("/"+input+"/expand", function(data, status) {
 			if (status == "success") {
@@ -38,4 +38,8 @@ $(document).ready(function() {
 	$("#address_form").submit(function(event) {
 		return false;
 	});
+	
+	function escape(str) {
+		return str.replace(/([ #;&%,+*~\'"!^$[\]()=>|])/g,'\\$1');
+	}
 });
