@@ -17,7 +17,6 @@ class IpRange
     		  prefix = IPAddress.parse(ip_address).max_prefix
         end
       end
-      puts "IP address: #{ip_address} and Prefix: #{prefix}"
       prefix = Integer(prefix)
       @Ip_helper = IPAddress.parse("#{ip_address}/#{prefix}")
     rescue
@@ -154,7 +153,6 @@ class IpRange
     end
     
   end
-  
 end
 
 class IPAddress::IPv6

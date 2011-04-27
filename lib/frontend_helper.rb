@@ -10,7 +10,7 @@ class FrontendHelper
   end
   
   def html_formated_address
-    hash = dotted_hash rescue nil
+    hash = @IP_Range.dotted_hash rescue nil
     
     if hash
       "<span class='net_style' id='net'>#{hash[:net]}</span><span class='mixed_style' id='mixed'>#{hash[:mixed]}</span><span class='host_style' id='host'>#{hash[:host]}</span>"

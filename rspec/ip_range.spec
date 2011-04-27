@@ -76,6 +76,7 @@ end
 describe IpRange, "when receiving ipv6 address" do
 
   Local_IPv6_address1_range = "fe80:0000:0000:0000:0000:0000:0000:282f/10"
+  Local_IPv6_address2_range = "ff80::/23"
   IPv6_address_range_2 = "2002:0000:0000:0000:17a4:0000:13f5:282f/3"
   IPv6_address_range_3 = "2001:910:7600::/38"
   IPv6_address_range_4 = "2a01:e00::/26"
@@ -93,6 +94,17 @@ describe IpRange, "when receiving ipv6 address" do
     metadata = IpRange.new(Local_IPv6_address1_range)
     metadata.net_address.should == "fe80:0000:0000:0000:0000:0000:0000:0000"
   end
+  
+  it "should return the correct net address for local ip address #{Local_IPv6_address2_range}" do 
+    metadata = IpRange.new(Local_IPv6_address2_range)
+    metadata.net_address.should == "ff80:0000:0000:0000:0000:0000:0000:0000"
+  end
+  
+  it "should return the correct net address for local ip address #{Local_IPv6_address2_range}" do 
+    metadata = IpRange.new(Local_IPv6_address2_range)
+    metadata.broadcast_address.should == "ff80:01ff:ffff:ffff:ffff:ffff:ffff:ffff"
+  end
+  
   
   it "should return the correct net address for local ip address #{IPv6_address_range_2}" do 
     metadata = IpRange.new(IPv6_address_range_2)
@@ -124,7 +136,7 @@ describe IpRange, "when receiving ipv6 address" do
     expected_result = {:net => "fe", :mixed => "8", :host => "0:0000:0000:0000:0202:b3ff:fe1e:8329"}
     IpRange.new(Local_IPv6_address1_to_format).dotted_hash.should == expected_result
   end
-  
+ 
   it "should print out the correct IP-address for ipv6 address #{Local_IPv6_address2_to_format}" do 
     expected_result = {:net => "fe80:0000:1234:0000:0222:b3fe:fefe:6201", :mixed => nil, :host => nil}
     IpRange.new(Local_IPv6_address2_to_format).dotted_hash.should == expected_result
