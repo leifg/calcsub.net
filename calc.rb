@@ -21,6 +21,18 @@ post '/post' do
   redirect "/#{params[:address_with_prefix]}"
 end
 
+get '/:address/:prefix/json' do
+  content_type :json
+  data = IpRange.new(params[:address],params[:prefix])
+  data.json
+end
+
+get '/:any_string/json' do
+  content_type :json
+  data = IpRange.new(params[:any_string])
+  data.json
+end
+
 get '/:any_string/expand' do
   @data = IpRange.new(params[:any_string])
   expand_string
@@ -49,12 +61,6 @@ end
 
 get '/' do
   process_data(params,nil,true)
-end
-
-get '/:address/:prefix/json' do
-  content_type :json
-  data = IpRange.new(params[:address],params[:prefix])
-  data.json
 end
 
 get '/:address/:prefix' do
