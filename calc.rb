@@ -5,7 +5,7 @@ require 'json'
 require File.join(File.dirname(__FILE__),'lib','ip_range.rb')
 require File.join(File.dirname(__FILE__),'lib','frontend_helper.rb')
 
-get '/css/style.css' do
+get '/public/css/style.css' do
   headers \
    'Content-Type' => 'text/css; charset=utf-8'
   sass :style
