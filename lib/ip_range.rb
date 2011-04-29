@@ -6,6 +6,8 @@ class IpRange
   @Net_address
   @Address
   
+  attr_reader :Ip_helper
+  
   def initialize(ip_address, prefix=nil)
     begin
       unless prefix
@@ -22,6 +24,10 @@ class IpRange
     rescue
       @Ip_helper = BoringStub.new
     end
+  end
+  
+  def ==(other)
+  	self.Ip_helper == other.Ip_helper
   end
   
   def separator
@@ -152,6 +158,10 @@ class IpRange
       nil
     end
     
+    def ==(other)
+		other.address == nil
+    end
+    
   end
 end
 
@@ -196,6 +206,10 @@ class IPAddress::IPv6
   def split
     Splitter.split(@prefix.to_i, sections, 16, 8)
   end
+  
+    def ==(other)
+  	address == other.address && prefix == other.prefix
+  end
 end
 
 class IPAddress::IPv4
@@ -224,6 +238,10 @@ class IPAddress::IPv4
     string_octets = Array.new
     octets.each {|o| string_octets << "%03d" % o}
     string_octets
+  end
+  
+  def ==(other)
+  	address == other.address && prefix == other.prefix	
   end
   
 end
@@ -272,5 +290,9 @@ class Splitter
     end
     
     hash
+  end
+  
+  def ==(other)
+  	address == other.address && prefix == other.prefix	
   end
 end

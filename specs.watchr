@@ -36,7 +36,7 @@ watch('^rspec/(.*)\.spec')       { run_all_rspecs }
 watch('^rspec/spec_helper\.rb')  { run_all_files }
 watch('^lib/(.*)\.rb')           { run_all_files }
 watch('^views/(.*)\.haml')       { run_all_files }
-watch('^*.rb')                   { run_all_files }
+#watch('^*.rb')                   { run_all_files }
 
 # --------------------------------------------------
 # Signal Handling

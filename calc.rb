@@ -33,12 +33,6 @@ get '/:any_string/json' do
   data.json
 end
 
-get '/:any_string/expand' do
-  @data = IpRange.new(params[:any_string])
-  expand_string
-  @string_for_input
-end
-
 ['/:any_string', '/:any_string/partial'].each do |path|
   partial = path =~ /partial$/
   
@@ -57,6 +51,18 @@ end
       process_data(params, IpRange.new(params[:any_string]), nil, page)
     end
   end
+end
+
+get '/:any_string/expand' do
+  @data = IpRange.new(params[:any_string])
+  expand_string
+  @string_for_input
+end
+
+get '/:address/:prefix/expand' do
+  @data = IpRange.new(params[:address], params[:prefix])
+  expand_string
+  @string_for_input
 end
 
 get '/' do

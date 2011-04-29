@@ -33,8 +33,40 @@ describe "DualCalc" do
     last_response.should be_ok 
   end
   
+  it "should expand an ipv4 address with prefix" do
+    get '/192.168.1.20/24/expand'
+    last_response.should be_ok
+	expected = IpRange.new("192.168.1.20",24)
+    actual = IpRange.new(last_response.body)
+    actual.should == expected
+  end
+  
+  it "should expand an ipv4 address without prefix" do
+    get '/192.168.1.20/expand'
+    last_response.should be_ok
+	expected = IpRange.new("192.168.1.20")
+    actual = IpRange.new(last_response.body)
+    actual.should == expected
+  end
+  
+  it "should expand an ipv6 address without prefix" do
+    get '/ff0::/expand'
+    last_response.should be_ok
+	expected = IpRange.new("ff0::")
+    actual = IpRange.new(last_response.body)
+    actual.should == expected
+  end
+  
+  it "should expand an ipv6 address with prefix" do
+    get '/ff0::/56/expand'
+    last_response.should be_ok
+	expected = IpRange.new("ff0::",56)
+    actual = IpRange.new(last_response.body)
+    actual.should == expected
+  end
+  
   it "should return css correctly" do
-    get '/css/style.css' 
+    get '/public/css/style.css' 
     last_response.headers["Content-Type"].should == "text/css; charset=utf-8"
   end
   
