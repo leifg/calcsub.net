@@ -49,18 +49,18 @@ describe "DualCalc" do
     actual.should == expected
   end
   
-  it "should expand an ipv6 address without prefix" do
-    get '/ff0::/expand'
-    last_response.should be_ok
-	expected = IpRange.new("ff0::")
-    actual = IpRange.new(last_response.body)
-    actual.should == expected
-  end
-  
   it "should expand an ipv6 address with prefix" do
     get '/ff0::/56/expand'
     last_response.should be_ok
 	expected = IpRange.new("ff0::",56)
+    actual = IpRange.new(last_response.body)
+    actual.should == expected
+  end
+  
+  it "should expand an ipv6 address without prefix" do
+    get '/ff0::/expand'
+    last_response.should be_ok
+	expected = IpRange.new("ff0::")
     actual = IpRange.new(last_response.body)
     actual.should == expected
   end

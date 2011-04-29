@@ -11,7 +11,15 @@
 		%meta{:content => 'ipv4, ipv6, ip address calculator, ip subnet calculator, ip calculator, subnet calculator, calculator for ipv4 and ipv6 ip addresses'}
 
 	%body
-		=haml :input, :layout => false
+		#wrapper{:class => 'wrapper_style'}
+			%p
+				=haml :input, :layout => false
 		
-		#address_container
-			= haml :output, :layout => false unless @empty
+				#address_container
+					=haml :output, :layout => false unless @empty
+				
+				#push{:class => 'push_style'}
+
+				%hr/
+				#footer_container{:class => 'footer_container_style'}
+					=haml :footer, :layout => false

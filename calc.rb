@@ -13,8 +13,14 @@ end
 
 get '/public/scripts/:any_script' do
   headers \
-   'Content-Type' => 'application/x-javascript; charset=utf-8'
+  'Content-Type' => 'application/x-javascript; charset=utf-8'
   File.read(File.join('public', 'scripts', params[:any_script]))
+end
+
+get '/public/images/:image.png' do
+  headers \
+  'Content-Type' => 'image/png'
+  File.read(File.join('public', 'images', "#{params[:image]}.png"))
 end
 
 post '/post' do

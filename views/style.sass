@@ -3,13 +3,43 @@ $fixed_font_to_use: Fixed, monospace
 $net_part_color: blue
 $mixed_part_color: red
 $host_part_color: black
+$grey: #bababa
+
+*
+	margin: 0
+
+html, body
+	height: 100%
+
+a
+	text-decoration: none
+	color: $grey
+	
+a:hover 
+	text-decoration: underline
+
+hr
+	border: none 0
+	border-top: 1px dashed $grey
+	width: 50%
+	height: 1px
+	margin: auto
+
+.wrapper_style
+	min-height: 100%
+	height: auto !important
+	height: 100%
+	margin: 0 auto -100px auto
+
+.logo_container_style
+	text-align: center
+	margin: 0 auto 30px
 
 .address_form_input_style
 	padding: 5px 10px
 	background-color: transparent
 	margin: 10px auto
 	width: 400px
-	margin: 5px auto
 	font-size: 15px
 	font-family: $fixed_font_to_use
 	font-weight: bold
@@ -18,10 +48,11 @@ $host_part_color: black
 	-moz-border-radius: 5px
 	-webkit-border-radius: 5px
 	color: #595959
+	margin: 10px auto 50px
 	
 .address_form_label_style
 	-webkit-transition: opacity 0.15s linear
-	color: #bababa
+	color: $grey
 	background-color: #FFFFFF
 	text-align: center
 	margin: auto
@@ -44,14 +75,11 @@ $host_part_color: black
 	font: bold 32px $fixed_font_to_use
 	text-align: center
 	border: 2px dashed black
-	margin: 50px auto 10px
+	margin: 10px auto 50px
 	-moz-border-radius: 10px
 	-khtml-border-radius: 10px
 	-webkit-border-radius: 10px
-
-.address_error_style
-	color: #555
-
+	
 .address_box_style_success
 	background: #88EE88
 
@@ -59,11 +87,11 @@ $host_part_color: black
 	background: #EE8888
 
 .address_info_box_style
+	display: table
 	width: 700px
 	padding: 10px
-	display: table
 	border: 2px dashed black
-	margin: 50px auto
+	margin: 50px auto 50px
 	-moz-border-radius: 10px
 	-khtml-border-radius: 10px
 	-webkit-border-radius: 10px
@@ -82,3 +110,22 @@ $host_part_color: black
 	color: $mixed_part_color
 #host
 	color: $host_part_color
+	
+.push_style
+	clear: both
+
+.footer_container_style
+	display: table
+	text-align: center
+	margin: 0 auto
+	clear: both
+
+.footer_content_style
+	display: table-row
+
+.footer_element_style
+	display: table-cell
+	text-align: center
+	font: bold 11px $fixed_font_to_use
+	color: $grey
+	padding: 5px 25px

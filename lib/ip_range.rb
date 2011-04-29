@@ -72,8 +72,8 @@ class IpRange
     {
       :address => address,
       :prefix => prefix,
-      :net_address => net_address,
-      :broadcast_address => broadcast_address,
+      :start_address => net_address,
+      :end_address => broadcast_address,
       :splitted_address => dotted_hash
     }.to_json
   end

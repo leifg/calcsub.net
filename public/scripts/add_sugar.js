@@ -22,11 +22,13 @@ $(document).ready(function() {
 	$("#address_form_input").blur(function(event) {
 		var input = escape($("#address_form_input").val());
 		
-		$.get("/"+input+"/expand", function(data, status) {
-			if (status == "success") {
-				$("#address_form_input").val(data);
-			}
-		})
+		if (input) {
+			$.get("/"+input+"/expand", function(data, status) {
+				if (status == "success") {
+					$("#address_form_input").val(data);
+				}
+			})
+		}
 	});
 	
 	// remove submit button

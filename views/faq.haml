@@ -1,0 +1,62 @@
+%h1{:id: => 'faq', :class => 'faq_style'}Frequently asked question
+-	q = {
+-	:purpose => 'What is the purpose of this website?',
+-	:colors => 'What are all the colors in the IP address?'
+-	:reason => 'Why did you do that?'
+-   :technologies => 'Which technologies did you use?'
+-	:api => 'Do you also have an API?'
+-	:src => 'Can I see the source code?'
+-	:support => 'How can I support you?'
+-	}
+	
+
+#toc{:class => 'toc_style'}
+	%li
+		%a{:href => '#purpose'}=q[:purpose]
+	%li
+		%a{:href => '#colors'}=q[:colors]
+	%li
+		%a{:href => '#reason'}=q[:reason]
+	%li
+		%a{:href => '#technologies'}=q[:technologies]
+	%li
+		%a{:href => '#api'}=q[:api]
+	%li
+		%a{:href => '#sourcecode'}=q[:src]
+	%li
+		%a{:href => '#support'}=q[:support]
+		
+%h2{:id => 'purpose'}=q[:purpose]
+
+%p
+	This site is a simple implementation of a subnet calculator. You can easily find out the start and end address of a network. To do so, just enter the address in the form &="<ip-address>/<prefix>". Both IPv4 and IPv6 IP addresses are supported. The calculator will automatically detect which version you use. You can also use the compressed representation for IPv6 (e.g. fe80::/10)
+	
+%h2{:id => 'colors'}=q[:colors]
+
+%p
+	The main field of the site is the IP address you entered, which is separated in 3 different sections. The first section (represented in blue) is the net part. This part will not change in your specific subnet. The last section is the host section (represented in black). In this section the numbers for the hosts can be chosen freely. Not in all cases those 2 sections are sufficient. It may be that one block (for IPv4) or one digit (for IPv6) has to be divided in a net part and a host part. For that reasons there is the mixed section (represented in red).
+	
+%h2{:id => 'reason'}=q[:reason]
+
+%p
+	I'm currently working in a software project where I often need to know the range of an IP network based on a single address with its prefix. There are numerous calculators available on the internet. However I was not quite with the design or the features (e.g. most calculators only support 1 IP version). In addition to that I figured it should not be that hard to write a calculator myself. So I chose a few technologies that I'm not that confident with (yet) to learn something.
+	
+%h2{:id => 'technologies'}=q[:technologies]
+
+%p
+	The whole backend is written in Ruby. For the web part I used Sinatra as its very easy and I don't need a database. Most of the IP calculation is done by the ruby gem ipaddress together with some helper functions I've written myself. The application itself is deployed on heroku. For more detailed list of all the used technologies, refer to the README.
+	
+%h2{:id => 'api'}=q[:api]
+
+%p
+	I wouldn't call it API, but there is a way to get all the output that is shown in the frontend in a machine-readable format (JSON). Just call the following URL: &="http://calcsub.net/<ip-address>/<prefix (optional)>/json" to get the information in JSON. A specification of the JSON object is also contained in the README.
+	
+%h2{:id => 'src'}=q[:src]
+
+%p
+	Of course you can. I deployed the source code to github.
+
+%h2{:id => 'support'}=q[:support]
+
+%p
+	There are multiple ways: use the application, send me feedback, fork me on github, send me a pull request. If you like it you can also flattr me or sign up for a Dropbox account using my referral id (please only if you don't already have one).
