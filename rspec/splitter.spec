@@ -6,7 +6,7 @@ describe Splitter, "when receiving ipv4 address" do
   IPv4_address_to_split3 = "7.92.23.79/8"
   IPv4_address_to_split4 = "62.18.29.1/31"
   
-  it "should return the 3 net sections, 0 mixed sections and 1 host section when receiving #{Local_IPv4_address_to_split1}" do 
+  it "should return the 3 net sections, 0 mixed sections and 1 host section when receiving #{Local_IPv4_address_to_split1}" do
     expected_result = {:net => ["192", "168", "000"], :mixed => [], :host => ["198"]}
     IPAddress::IPv4.new(Local_IPv4_address_to_split1).split.should == expected_result
   end

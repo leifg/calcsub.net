@@ -1,9 +1,9 @@
 !!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
 	%head 
-		%title calcsub.net
+		%title=@title
 		%link{:rel => 'stylesheet', :href => '/public/css/style.css'}
-		%script{:src => "http://code.jquery.com/jquery-1.5.2.min.js", :type => 'text/javascript', :charset => 'utf-8'}
+		%script{:src => "http://code.jquery.com/jquery-#{settings.jquery_version}.min.js", :type => 'text/javascript', :charset => 'utf-8'}
 		%script{:src => "/public/scripts/add_sugar.js", :type => 'text/javascript', :charset => 'utf-8'}
 		%meta{:author => 'Leif Gensert'}
 		%meta{:content => 'text/html', :charset => 'utf-8', 'http-equiv' => 'Content-Type' }
@@ -13,11 +13,12 @@
 	%body
 		#wrapper{:class => 'wrapper_style'}
 			%p
-				=haml :input, :layout => false
-		
-				#address_container
-					=haml :output, :layout => false unless @empty
+				#logo_container{:class => 'logo_container_style'}
+					%a{:href => "/"}
+						%img{:src => '/public/images/logo.png', :class => 'logo_style'}
 				
+				=yield
+								
 				#push{:class => 'push_style'}
 
 				%hr/

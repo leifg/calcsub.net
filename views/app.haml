@@ -1,0 +1,5 @@
+#address_form_container{:class => 'address_form_style'}
+	=haml :input, :layout => false
+
+#address_container
+	=haml :output, :layout => false unless @empty

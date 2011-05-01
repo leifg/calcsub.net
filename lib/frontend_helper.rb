@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__),'ip_range.rb')
+require 'haml/helpers'
 
 class FrontendHelper
 

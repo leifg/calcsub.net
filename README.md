@@ -52,4 +52,4 @@ For development you'll need:
 - watchr
 - rack-test
 
-Or just use bundler.
+Or just use [bundler](http://gembundler.com/).

@@ -12,6 +12,11 @@ describe "DualCalc" do
     last_response.should be_ok
   end
   
+  it "should respond to /faq" do
+    get '/faq'
+    last_response.should be_ok
+  end
+  
   it "should respond to any string" do
     get '/any_string'
     last_response.should be_ok

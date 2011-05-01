@@ -23,6 +23,24 @@ get '/public/images/:image.png' do
   File.read(File.join('public', 'images', "#{params[:image]}.png"))
 end
 
+get '/faq' do
+  @title = "#{settings.title} - FAQ"
+  helpers do
+    def q
+      { 
+      :purpose => 'What is the purpose of this website?',
+      :colors => 'What are all the colors in the IP address?',
+      :reason => 'Why did you do that?',      
+      :technologies => 'Which technologies did you use?',
+      :api => 'Do you also have an API?',
+      :src => 'Can I see the source code?',
+      :support => 'How can I support you?'
+      }
+    end
+  end
+  haml :faq
+end
+
 post '/post' do
   redirect "/#{params[:address_with_prefix]}"
 end
@@ -44,8 +62,10 @@ end
   
   if partial
     page = :output
+    layout = false
   else
-    page = :layout
+    page = :app
+    layout = true
   end
   
   get path do
@@ -54,7 +74,7 @@ end
       append_string = partial ? "/partial" : nil
       redirect "/#{tmp_data.address}/#{tmp_data.prefix}#{append_string}"
     else
-      process_data(params, IpRange.new(params[:any_string]), nil, page)
+      process_data(params, IpRange.new(params[:any_string]), nil, page, layout)
     end
   end
 end
@@ -80,7 +100,7 @@ get '/:address/:prefix' do
 end
 
 get '/:address/:prefix/partial' do
-  process_data(params, IpRange.new(params[:address],params[:prefix]),nil,:output)
+  process_data(params, IpRange.new(params[:address],params[:prefix]),nil,:output,false)
 end
 
 helpers do
@@ -95,7 +115,8 @@ helpers do
     end
   end
   
-  def process_data(params, data=nil, empty=nil, page=:layout)
+  def process_data(params, data=nil, empty=nil, page=:app, layout=true)
+    @title = settings.title
     if data
       @data = data
     else
@@ -105,6 +126,6 @@ helpers do
     @frontend_helper = FrontendHelper.new(@data)
     expand_string
   
-    haml page, :layout => false
+    haml page, :layout => layout
   end
 end
