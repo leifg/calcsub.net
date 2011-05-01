@@ -15,6 +15,7 @@ $(document).ready(function() {
 		}
 		else {
 			$("#address_container").empty();
+			window.history.pushState("object or string", "Title", "/");
 		}
 
 	});
