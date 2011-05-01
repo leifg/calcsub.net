@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '..', 'lib','ip_range.rb')
 require File.join(File.dirname(__FILE__), '..', 'lib','frontend_helper.rb')
 require File.join(File.dirname(__FILE__), '..', 'calc.rb')
-require File.join(File.dirname(__FILE__), '..', 'lib','options.rb')
+require File.join(File.dirname(__FILE__), '..', 'lib','settings.rb')
 
 require 'rubygems'
 require 'sinatra'

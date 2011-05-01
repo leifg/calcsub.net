@@ -4,12 +4,16 @@ $net_part_color: blue
 $mixed_part_color: red
 $host_part_color: black
 
-$faq_intend: 20px
+$faq_padding_left: 0px
+$topic_padding_left: $faq_padding_left + 50px
+$topic_width: 43em
+$answers_width: 75em
 
 $grey: #bababa
 
 *
 	margin: 0
+	font-family: $fixed_font_to_use
 
 html, body
 	height: 100%
@@ -18,11 +22,15 @@ a
 	text-decoration: none
 	color: $grey
 
-h1
-	font-family: $fixed_font_to_use
-	font-size: 48px
-	margin: auto
+h1	
+	font-size: 40px
+	text-align: center
+	padding: 20px
 	
+h2
+	font-size: 24px
+	padding: 20px 0
+
 a:hover 
 	text-decoration: underline
 
@@ -49,7 +57,6 @@ hr
 	margin: 10px auto
 	width: 400px
 	font-size: 15px
-	font-family: $fixed_font_to_use
 	font-weight: bold
 	border: 1px solid #ccc
 	text-align: center
@@ -120,7 +127,18 @@ hr
 	color: $host_part_color
 
 .toc_style
-	font-family: $fixed_font_to_use
+	padding-left: $topic_padding_left
+	max-width: $topic_width
+	margin: auto
+	padding-bottom: 20px
+	
+.answers_style
+	max-width: $answers_width
+	margin: auto
+
+.toc_style ul
+	list-style: none
+	font-size: 20px
 
 .push_style
 	clear: both
@@ -133,6 +151,9 @@ hr
 
 .footer_content_style
 	display: table-row
+
+.answers_style p
+	padding: 10px 10px
 
 .footer_element_style
 	display: table-cell

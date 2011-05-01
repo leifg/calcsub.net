@@ -8,6 +8,7 @@ $(document).ready(function() {
 			$.get("/"+input+"/partial", function(data, status) {
 				if (status == "success") {
 					$("#address_container").html(data);
+					window.history.pushState("object or string", "Title", "/"+input);
 				}
 
 			})
