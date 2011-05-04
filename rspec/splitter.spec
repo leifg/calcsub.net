@@ -11,17 +11,17 @@ describe Splitter, "when receiving ipv4 address" do
     IPAddress::IPv4.new(Local_IPv4_address_to_split1).split.should == expected_result
   end
   
-  it "should return the 2 net sections, 1 sections and 1 host section when receiving #{IPv4_address_to_split2}" do 
+  it "should return the 2 net sections, 1 mixed sections and 1 host section when receiving #{IPv4_address_to_split2}" do 
     expected_result = {:net => ["172", "016"], :mixed => ["025"], :host => ["001"]}
     IPAddress::IPv4.new(IPv4_address_to_split2).split.should == expected_result
   end
   
-  it "should return the 1 net sections, 0 sections and 3 host section when receiving #{IPv4_address_to_split3}" do 
+  it "should return the 1 net sections, 0 mixed sections and 3 host section when receiving #{IPv4_address_to_split3}" do 
     expected_result = {:net => ["007"], :mixed => [], :host => ["092", "023", "079"]}
     IPAddress::IPv4.new(IPv4_address_to_split3).split.should == expected_result
   end
   
-  it "should return the 1 net sections, 0 sections and 3 host section when receiving #{IPv4_address_to_split4}" do 
+  it "should return the 3 net sections, 1 mixed sections and 0 host section when receiving #{IPv4_address_to_split4}" do 
     expected_result = {:net => ["062", "018", "029"], :mixed => ["001"], :host => []}
     IPAddress::IPv4.new(IPv4_address_to_split4).split.should == expected_result
   end

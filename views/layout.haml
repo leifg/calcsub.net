@@ -5,11 +5,11 @@
 		%link{:rel => 'stylesheet', :href => '/public/css/style.css'}
 		%script{:src => "http://code.jquery.com/jquery-#{settings.jquery_version}.min.js", :type => 'text/javascript', :charset => 'utf-8'}
 		%script{:src => "/public/scripts/add_sugar.js", :type => 'text/javascript', :charset => 'utf-8'}
-		=haml :ga, :layout => false
 		%meta{:author => 'Leif Gensert'}
 		%meta{:content => 'text/html', :charset => 'utf-8', 'http-equiv' => 'Content-Type' }
 		%meta{:content => 'IP address calculator for IPv4 and IPv6 addresses given a prefix in decimal form', :name => 'description' }
 		%meta{:content => 'ipv4, ipv6, ip address calculator, ip subnet calculator, ip calculator, subnet calculator, calculator for ipv4 and ipv6 ip addresses'}
+		=haml :ga, :layout => false
 
 	%body
 		#wrapper{:class => 'wrapper_style'}
